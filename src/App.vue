@@ -5,10 +5,10 @@ import Todo from './components/Todo.vue';
 
   const inputTodo = ref('')
   const todos = ref([])
-  console.log(todos.value)
+  //console.log(todos.value)
   
   watch(inputTodo, (value)=> {
-    console.log(value)
+    //console.log(value)
   })
 
   onMounted(()=>{
@@ -20,7 +20,7 @@ import Todo from './components/Todo.vue';
 }))
 
   const addTodo = () =>{
-    if(inputTodo.value === null) return
+    if(inputTodo.value === '') return
 
     const newTodo = {
       id:Date.now(),
@@ -30,12 +30,12 @@ import Todo from './components/Todo.vue';
     }
     todos.value.push(newTodo)
     localStorage.setItem('vue-todos', JSON.stringify(todos.value))
-    console.log(todos.value)
+    //console.log(todos.value)
     inputTodo.value=''
   }
 
   const deleteTodo = (id) =>{
-    console.log(id)
+    //console.log(id)
     todos.value = todos.value.filter(todo => todo.id !== id)
     localStorage.setItem('vue-todos', JSON.stringify(todos.value))
   }
@@ -57,12 +57,14 @@ import Todo from './components/Todo.vue';
   }
 
 const updateTodo = (id, value) => {
-  console.log(value)
+  //console.log(value)
+  
   const newTodos = todos.value.filter(todo =>{
     if(todo.id === id){
       return {
         ...todo,
-        todo:value
+        todo:value,
+        createdAt:Date.now()
       }
     }
     return todo
@@ -94,8 +96,13 @@ const updateTodo = (id, value) => {
       </div>
     </form>
     <div v-if="todos">
-      <div v-for="todo in todos_asc">
-        <Todo :todo='todo' @deleteTodo = 'deleteTodo' @toggleComplete='toggleComplete' @updateTodo = 'updateTodo'/>
+      <div v-for="todo in todos_asc" :key="todo">
+        <Todo 
+          :todo='todo' 
+          @deleteTodo = 'deleteTodo' 
+          @toggleComplete='toggleComplete' 
+          @updateTodo = 'updateTodo'
+        />
       </div>
     </div>
   </section>

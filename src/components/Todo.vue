@@ -2,7 +2,7 @@
 import {ref} from 'vue'
 
 const inputRef = ref(true)
-console.log(inputRef.onkeypress)
+//console.log(inputRef.onkeypress)
 
  const props = defineProps({
      todo:{
@@ -14,13 +14,13 @@ console.log(inputRef.onkeypress)
  
 
  const handleDelete = (id) => {
-     console.log(id)
+     //console.log(id)
      emits('deleteTodo', id)
  }
 
 
  const toggleCheck = (id, completed) =>{
-     console.log(id, completed)
+     //console.log(id, completed)
      emits('toggleComplete', id, completed)
  }
 
@@ -32,7 +32,7 @@ const changeFocus = (e) =>{
 }
 
 const edit = (e, id, todo) =>{
-    console.log(e.which)
+    //console.log(e.which)
     
         emits('updateTodo', id, todo)
         inputRef.value.disabled = true
@@ -96,7 +96,14 @@ const edit = (e, id, todo) =>{
         text-decoration-color: rgb(84, 238, 84);
         text-decoration-line: line-through;
         text-decoration-thickness: 3px;
+
         
+        
+    }
+
+    .todo__complete:focus{
+        
+        outline: none;
     }
 
     .todo:focus{
